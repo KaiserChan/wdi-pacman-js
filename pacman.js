@@ -67,7 +67,7 @@ function displayMenu() {
   console.log('!!!!! NO MORE POWER PELLET !!!!!');
   }
   for (var i=0; i < ghosts.length; i++) {
-    console.log('(' + (i+1) + ')' + ' Eat ' + ghosts[i].name);
+    console.log('(' + (i+1) + ')' + ' Eat ' + ghosts[i].name + ' ' + '(' + checkEdible(ghosts[i]) + ')');
   }
 
   console.log('(q) Quit');
@@ -90,6 +90,10 @@ function eatGhost(ghost) {
     lives -= 1;
     console.log(ghost.name + ' the ' + ghost.colour + ' ghost killed Pac-Man.');
     checkLives();
+  } else {
+    console.log('Pac-Man devours the ' + ghost.character + ' ghost ' + ghost.name + '! Yum yum yum ...');
+    score += 200;
+    ghost.edible = false;
   }
 }
 
@@ -110,6 +114,14 @@ function checkLives() {
   if (lives < 0 ) {
     console.log('Pac-Man is dead ...');
     process.exit();
+  }
+}
+
+function checkEdible(ghost) {
+  if (ghost.edible === false) {
+    return 'inedible';
+  } else {
+    return 'edible';
   }
 }
 
