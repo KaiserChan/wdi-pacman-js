@@ -37,6 +37,8 @@ var clyde = {
   edible: false
 };
 
+var ghosts = [inky, blinky, pinky, clyde]
+
 // Draw the screen functionality
 function drawScreen() {
   clearScreen();
