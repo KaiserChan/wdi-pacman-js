@@ -2,6 +2,8 @@
 var score = 0;
 var lives = 2;
 var power_pellets = 4;
+var dots = 240;
+var score_per_dot = 10;
 
 // Define your ghosts here
 
@@ -54,13 +56,32 @@ function clearScreen() {
 }
 
 function displayStats() {
-  console.log('Score: ' + score + '     Lives: ' + lives);
-  console.log('\n\nPower-Pellets: ' + power_pellets);
+  console.log('Score: ' + score + '           Lives: ' + lives);
+  console.log('\n\nPower-Pellets: ' + power_pellets + '   Dots: ' + dots);
 }
 
 function displayMenu() {
   console.log('\n\nSelect Option:\n');  // each \n creates a new line
-  console.log('(d) Eat Dot');
+  if (dots > 0) {
+    console.log('(d) Eat Dot');
+  } else {
+    console.log('!!!!! NO MORE DOTS LEFT !!!!!');
+  }
+  if (dots < 10) {
+    console.log('!!!!! NOT ENOUGH DOTS! CANNOT EAT 10 AT A TIME !!!!!');
+  } else {
+    console.log('(t) Eat 10 Dot');
+  }
+  if (dots < 100) {
+    console.log('!!!!! NOT ENOUGH DOTS! CANNOT EAT 100 AT A TIME !!!!!');
+  } else {
+    console.log('(h) Eat 100 Dot');
+  }
+  if (dots === 0) {
+    console.log('!!!!! NO MORE DOTS LEFT !!!!!');
+  } else {
+    console.log('(a) Eat ALL Dot');
+  }
   if (power_pellets > 0) {
   console.log('(p) Eat Power-Pellet');
   } else {
@@ -82,7 +103,26 @@ function displayPrompt() {
 // Menu Options
 function eatDot() {
   console.log('\nChomp!');
-  score += 10;
+  score += score_per_dot;
+  dots -= 1;
+}
+
+function eatTenDot() {
+  console.log('\nChomp!');
+  score += (score_per_dot * 10);
+  dots -= 10;
+}
+
+function eatHundredDot() {
+  console.log('\nChomp!');
+  score += (score_per_dot * 100);
+  dots -= 100;
+}
+
+function eatAllDot() {
+  console.log('\nChomp!');
+  score += (score_per_dot * dots);
+  dots -= dots;
 }
 
 function eatGhost(ghost) {
@@ -159,8 +199,33 @@ function processInput(key) {
       eatGhost(clyde);
       break;
     case 'd':
-      eatDot();
-      break;
+      if (dots > 0) {
+        eatDot();
+        break;
+      } else {
+        console.log('NO ENOUGH DOTS!');
+      }
+    case 't':
+      if (dots >= 10) {
+        eatTenDot();
+        break;
+      } else {
+        console.log('NO ENOUGH DOTS!');
+      }
+    case 'h':
+      if (dots >= 100) {
+        eatHundredDot();
+        break;
+      } else {
+        console.log('NO ENOUGH DOTS!');
+      }
+    case 'a':
+      if (dots > 0) {
+        eatAllDot();
+        break;
+      } else {
+        console.log('NO ENOUGH DOTS!');
+      }
     default:
       console.log('\nInvalid Command!');
   }
