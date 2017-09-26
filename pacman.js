@@ -84,6 +84,15 @@ function eatGhost(ghost) {
   if (ghost.edible === false) {
     lives -= 1;
     console.log(ghost.name + ' the ' + ghost.colour + ' ghost killed Pac-Man.');
+    checkLives();
+  }
+}
+
+// Check number of live and see if still alive
+function checkLives() {
+  if (lives < 0 ) {
+    console.log('Pac-Man is dead ...');
+    process.exit();
   }
 }
 
@@ -103,15 +112,19 @@ function processInput(key) {
       break;
     case '1':
       eatGhost(inky);
+      // checkLives();
       break;
     case '2':
       eatGhost(blinky);
+      // checkLives();
       break;
     case '3':
       eatGhost(pinky);
+      // checkLives();
       break;
     case '4':
       eatGhost(clyde);
+      // checkLives();
       break;
     case 'd':
       eatDot();
