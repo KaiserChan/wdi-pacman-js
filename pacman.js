@@ -80,13 +80,38 @@ function eatDot() {
   score += 10;
 }
 
+function eatGhost(ghost) {
+  if (ghost.edible === false) {
+    lives -= 1;
+    console.log(ghost.name + ' the ' + ghost.colour + ' ghost killed Pac-Man.');
+  }
+}
+
 
 // Process Player's Input
 function processInput(key) {
+  // for (var i=0; i < ghosts.length; i++) {
+  //   if (ghosts[i].menu_option === key) {
+  //     eatGhost(ghosts[i])
+  //     return
+  //   }
+  // }
   switch(key) {
     case '\u0003': // This makes it so CTRL-C will quit the program
     case 'q':
       process.exit();
+      break;
+    case '1':
+      eatGhost(inky);
+      break;
+    case '2':
+      eatGhost(blinky);
+      break;
+    case '3':
+      eatGhost(pinky);
+      break;
+    case '4':
+      eatGhost(clyde);
       break;
     case 'd':
       eatDot();
