@@ -4,6 +4,8 @@ var lives = 2;
 var power_pellets = 4;
 var dots = 240;
 var score_per_dot = 10;
+var base_score_per_ghost_eaten = 200;
+var number_of_ghost_eaten = 0;
 
 // Define your ghosts here
 
@@ -132,7 +134,8 @@ function eatGhost(ghost) {
     checkLives();
   } else {
     console.log('Pac-Man devours the ' + ghost.character + ' ghost ' + ghost.name + '! Yum yum yum ...');
-    score += 200;
+    number_of_ghost_eaten += 1;
+    score += (base_score_per_ghost_eaten * (2^(number_of_ghost_eaten - 1)));
     ghost.edible = false;
   }
 }
