@@ -90,6 +90,16 @@ function eatGhost(ghost) {
   }
 }
 
+function eatPowerPellet() {
+  console.log('\nPac-Man devours a Power-Pellet...');
+  score += 50;
+  for (var i=0; i < ghosts.length; i++) {
+    ghosts[i].edible = true;
+    console.log(ghosts[i].name + ' is now edible ...');
+  }
+  power_pellets -= 1;
+}
+
 // Check number of live and see if still alive
 function checkLives() {
   if (lives < 0 ) {
@@ -112,21 +122,20 @@ function processInput(key) {
     case 'q':
       process.exit();
       break;
+    case 'p':
+      eatPowerPellet();
+      break;
     case '1':
       eatGhost(inky);
-      // checkLives();
       break;
     case '2':
       eatGhost(blinky);
-      // checkLives();
       break;
     case '3':
       eatGhost(pinky);
-      // checkLives();
       break;
     case '4':
       eatGhost(clyde);
-      // checkLives();
       break;
     case 'd':
       eatDot();
