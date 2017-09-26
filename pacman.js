@@ -61,8 +61,11 @@ function displayStats() {
 function displayMenu() {
   console.log('\n\nSelect Option:\n');  // each \n creates a new line
   console.log('(d) Eat Dot');
+  if (power_pellets > 0) {
   console.log('(p) Eat Power-Pellet');
-
+  } else {
+  console.log('!!!!! NO MORE POWER PELLET !!!!!');
+  }
   for (var i=0; i < ghosts.length; i++) {
     console.log('(' + (i+1) + ')' + ' Eat ' + ghosts[i].name);
   }
@@ -91,13 +94,15 @@ function eatGhost(ghost) {
 }
 
 function eatPowerPellet() {
-  console.log('\nPac-Man devours a Power-Pellet...');
-  score += 50;
-  for (var i=0; i < ghosts.length; i++) {
-    ghosts[i].edible = true;
-    console.log(ghosts[i].name + ' is now edible ...');
+  if (power_pellets > 0) {
+    console.log('\nPac-Man devours a Power-Pellet...');
+    score += 50;
+    for (var i=0; i < ghosts.length; i++) {
+      ghosts[i].edible = true;
+      console.log(ghosts[i].name + ' is now edible ...');
+    }
+    power_pellets -= 1;
   }
-  power_pellets -= 1;
 }
 
 // Check number of live and see if still alive
@@ -123,8 +128,12 @@ function processInput(key) {
       process.exit();
       break;
     case 'p':
-      eatPowerPellet();
-      break;
+      if (power_pellets > 0) {
+        eatPowerPellet();
+        break;
+      } else {
+        console.log('Pac-Man ran out of Power Pellet!');
+      }
     case '1':
       eatGhost(inky);
       break;
