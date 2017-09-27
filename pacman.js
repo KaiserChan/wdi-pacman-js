@@ -43,6 +43,10 @@ var clyde = {
 
 var ghosts = [inky, blinky, pinky, clyde]
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 // Draw the screen functionality
 function drawScreen() {
   clearScreen();
@@ -140,15 +144,20 @@ function eatGhost(ghost) {
   }
 }
 
-function eatPowerPellet() {
+async function eatPowerPellet() {
   if (power_pellets > 0) {
     console.log('\nPac-Man devours a Power-Pellet...');
     score += 50;
-    for (var i=0; i < ghosts.length; i++) {
+    for (var i = 0; i < ghosts.length; i++) {
       ghosts[i].edible = true;
       console.log(ghosts[i].name + ' is now edible ...');
     }
     power_pellets -= 1;
+    await sleep(10000);
+    for (var i = 0; i < ghosts.length; i++) {
+      ghosts[i].edible = false;
+      console.log(ghosts[i].name + ' is now back to being inedible ...');
+    }
   }
 }
 
