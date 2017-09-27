@@ -135,7 +135,7 @@ function eatGhost(ghost) {
   } else {
     console.log('Pac-Man devours the ' + ghost.character + ' ghost ' + ghost.name + '! Yum yum yum ...');
     number_of_ghost_eaten += 1;
-    score += (base_score_per_ghost_eaten * (2^(number_of_ghost_eaten - 1)));
+    score += (base_score_per_ghost_eaten * (Math.pow(2, (number_of_ghost_eaten - 1))));
     ghost.edible = false;
   }
 }
